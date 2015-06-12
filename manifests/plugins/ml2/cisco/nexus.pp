@@ -19,9 +19,22 @@
 #
 
 class neutron::plugins::ml2::cisco::nexus (
-  $nexus_config = undef,
-)
-{
+  $nexus_config       = undef,
+  $vlan_name_prefix          = 'q-',
+  $svi_round_robin           = false,
+  $managed_physical_network  = undef,
+  $provider_vlan_name_prefix = 'p-',
+  $persistent_switch_config  = false,
+  $switch_heartbeat_time     = 0,
+  $switch_replay_count       = 3,
+  $provider_vlan_auto_create = True,
+  $provider_vlan_auto_trunk  = True,
+  $vxlan_global_config       = True,
+  $host_key_checks           = False
+) {
+  # Evaluate the cisco_ml2 class after this class
+  include neutron::plugins::ml2::cisco::cisco_ml2
+  Class['nexus'] -> Class['cisco_ml2']
 
   if !$nexus_config {
     fail('No nexus config specified')
@@ -36,12 +49,10 @@ class neutron::plugins::ml2::cisco::nexus (
     tag    => 'openstack',
   } ~> Service['neutron-server']
 
-  Neutron_plugin_ml2<||> ->
-  file { $::neutron::params::cisco_ml2_config_file:
-    owner   => 'root',
-    group   => 'root',
-    content => template('neutron/ml2_conf_cisco.ini.erb'),
-  } ~> Service['neutron-server']
+  concat::fragment { 'nexus_config':
+    target  => $::neutron::params::cisco_ml2_config_file,
+    content => template('neutron/ml2_conf_cisco_nexus.erb')
+  }
 
   create_resources(neutron::plugins::ml2::cisco::nexus_creds, $nexus_config)
 
