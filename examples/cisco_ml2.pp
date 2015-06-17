@@ -8,10 +8,10 @@ class { '::neutron':
   debug                 => true,
 }
 
-#class { '::neutron::server':
-#  auth_host         => '127.0.0.1',
-#  auth_password     => 'keystone_secret',
-#}
+class { '::neutron::server':
+#  auth_uri         => 'http://127.0.0.1:5000',
+  auth_password     => 'keystone_secret',
+}
 
 class { '::neutron::plugins::ml2':
   type_drivers         => ['vlan'],

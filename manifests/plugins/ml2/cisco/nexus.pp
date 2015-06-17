@@ -114,10 +114,10 @@ class neutron::plugins::ml2::cisco::nexus (
   # Please use the source from:
   # https://launchpad.net/~cisco-openstack/+archive/python-ncclient
   # and install it manually
-  #package { 'python-ncclient':
-  #  ensure => installed,
-  #  tag    => 'openstack',
-  #} ~> Service['neutron-server']
+  package { 'python-ncclient':
+    ensure => installed,
+    tag    => 'openstack',
+  } ~> Service['neutron-server']
 
   concat::fragment { 'nexus_config':
     target  => $::neutron::params::cisco_ml2_config_file,
