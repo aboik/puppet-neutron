@@ -39,8 +39,8 @@ class {'::neutron::plugins::ml2::cisco::nexus':
       'nve_src_intf' => 1,
       'physnet'      => 'physnet',
       'servers'      => {
-        'control1' => 'portchannel:20',
-        'control2' => 'portchannel:10'
+        'control1' => 'ethernet:1/1',
+        'control2' => 'ethernet:1/2'
       }
     },
     'n9372-2' => {
@@ -51,8 +51,8 @@ class {'::neutron::plugins::ml2::cisco::nexus':
       'nve_src_intf' => 1,
       'physnet'      => 'physnet',
       'servers'      => {
-        'compute1' => 'portchannel:20',
-        'compute2' => 'portchannel:10'
+        'compute1' => 'ethernet:1/1',
+        'compute2' => 'ethernet:1/2'
       }
     }
   },
