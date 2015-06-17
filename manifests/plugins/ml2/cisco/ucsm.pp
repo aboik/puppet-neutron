@@ -1,15 +1,36 @@
 #
-# Configure the Mech Driver for cisco UCSM plugin
+# Configure the Mech Driver for Cisco UCSM plugin
 #
 # === Parameters
+#
+# [*ucsm_ip*]
+#   IP address of the Cisco UCS Manager
+#
+# [*ucsm_username*]
+#   Username to connect to the UCS Manager
+#
+# [*ucsm_password*]
+#   Password to connect to the UCS Manager
+#
+# [*ucsm_host_list*]
+#   Hostname to Service profile mapping for UCSM-controlled compute hosts
+#   Example:
+#   Hostname1:Serviceprofile1, Hostname2:Serviceprofile2
+#
+# [*supported_pci_devs*]
+#   (optional) SR-IOV and VM-FEX vendors supported by this plugin
+#   xxxx:yyyy represents vendor_id:product_id
+#   Defaults to undef
+#   Example:
+#   [ '2222:3333', '4444:5555' ]
 #
 
 class neutron::plugins::ml2::cisco::ucsm (
   $ucsm_ip,
   $ucsm_username,
   $ucsm_password,
-  $supported_pci_devs = undef,
   $ucsm_host_list,
+  $supported_pci_devs = undef,
 ) {
   include neutron::plugins::ml2::cisco::cisco_ml2
 
