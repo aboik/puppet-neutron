@@ -29,8 +29,38 @@ class {'::neutron::plugins::ml2::cisco::ucsm':
   ucsm_host_list => '127.0.0.1',
 }
 
+class {'::neutron::plugins::ml2::cisco::nexus':
+  nexus_config => {
+    'n9372-1' => {
+      'username'     => 'admin',
+      'password'     => 'password',
+      'ssh_port'     => 22,
+      'ip_address'   => '127.0.0.1',
+      'nve_src_intf' => 1,
+      'physnet'      => 'physnet',
+      'servers'      => {
+        'control1' => 'portchannel:20',
+        'control2' => 'portchannel:10'
+      }
+    },
+    'n9372-2' => {
+      'username'     => 'admin',
+      'password'     => 'password',
+      'ssh_port'     => 22,
+      'ip_address'   => '127.0.0.1',
+      'nve_src_intf' => 1,
+      'physnet'      => 'physnet',
+      'servers'      => {
+        'compute1' => 'portchannel:20',
+        'compute2' => 'portchannel:10'
+      }
+    }
+  },
+  managed_physical_network => 'physnet',
+}
+
 class {'::neutron::plugins::ml2::cisco::type_nexus_vxlan':
   vni_ranges   => '20000:22000',
-  mcast_ranges => '224.0.0.1:224.0.0.3',
+  mcast_ranges => '224.0.0.1:224.0.0.4',
 }
 

@@ -108,17 +108,16 @@ class neutron::plugins::ml2::cisco::nexus (
   $vxlan_global_config       = True,
   $host_key_checks           = False
 ) {
-  # Evaluate the cisco_ml2 class after this class
   include neutron::plugins::ml2::cisco::cisco_ml2
 
   # For Ubuntu: This package is not available upstream
   # Please use the source from:
   # https://launchpad.net/~cisco-openstack/+archive/python-ncclient
   # and install it manually
-  package { 'python-ncclient':
-    ensure => installed,
-    tag    => 'openstack',
-  } ~> Service['neutron-server']
+  #package { 'python-ncclient':
+  #  ensure => installed,
+  #  tag    => 'openstack',
+  #} ~> Service['neutron-server']
 
   concat::fragment { 'nexus_config':
     target  => $::neutron::params::cisco_ml2_config_file,

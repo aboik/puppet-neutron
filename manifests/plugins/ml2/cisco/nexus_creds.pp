@@ -13,19 +13,23 @@ define neutron::plugins::ml2::cisco::nexus_creds(
   $password,
   $servers,
   $ip_address,
-  $ssh_port
+  $ssh_port,
+  $nve_src_intf = undef,
+  $physnet      = undef,
 ) {
 
-  file {'/var/lib/neutron/.ssh':
-    ensure  => directory,
-    owner   => 'neutron',
-    require => Package['neutron-server']
+  if ! defined(File['/var/lib/neutron/.ssh']) {
+    file {'/var/lib/neutron/.ssh':
+      ensure  => directory,
+      owner   => 'neutron',
+      #require => Package['neutron-server']
+    }
   }
 
-  exec {'nexus_creds':
+  exec {"nexus_creds_${name}":
     unless  => "/bin/cat /var/lib/neutron/.ssh/known_hosts | /bin/grep ${username}",
     command => "/usr/bin/ssh-keyscan -t rsa ${ip_address} >> /var/lib/neutron/.ssh/known_hosts",
     user    => 'neutron',
-    require => [Package['neutron-server'], File['/var/lib/neutron/.ssh']]
+    #require => [Package['neutron-server'], File['/var/lib/neutron/.ssh']]
   }
 }

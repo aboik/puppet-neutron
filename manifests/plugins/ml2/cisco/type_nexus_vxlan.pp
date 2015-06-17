@@ -24,9 +24,7 @@ class neutron::plugins::ml2::cisco::type_nexus_vxlan (
   $vni_ranges,
   $mcast_ranges = undef,
 ) {
-  # Evaluate the cisco_ml2 class after this class
   include neutron::plugins::ml2::cisco::cisco_ml2
-  include neutron::plugins::ml2::cisco::nexus
 
   concat::fragment { 'type_nexus_vxlan_config':
     target  => $::neutron::params::cisco_ml2_config_file,

@@ -88,14 +88,14 @@
 # orchestration.
 #
 # vxlan_global_config = True
-<%= "vxlan_global_config = #{vxlan_global_config}" \
+<%= "vxlan_global_config = #{@vxlan_global_config}" \
      if defined?(@vxlan_global_config) %>
 
 # (BoolOpt) A flag indicating whether or not to enable strict host key checks
 # when connecting to Nexus switches.
 #
 # host_key_checks = False
-<%= "host_key_checks = #{host_key_checks}" \
+<%= "host_key_checks = #{@host_key_checks}" \
      if defined?(@host_key_checks) %>
 
 # Cisco Nexus Switch configurations.
@@ -154,7 +154,7 @@
 ssh_port=<%= switch_data['ssh_port'] %>
 username=<%= switch_data['username'] %>
 password=<%= switch_data['password'] %>
-nve_src_intf=<%= switch_data['loopback_number'] %>
-physnet=<%= switch_data['physical_network'] %>
+nve_src_intf=<%= switch_data['nve_src_intf'] %>
+physnet=<%= switch_data['physnet'] %>
 <% end %>
 

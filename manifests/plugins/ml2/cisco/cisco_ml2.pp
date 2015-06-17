@@ -13,11 +13,13 @@ class neutron::plugins::ml2::cisco::cisco_ml2 (
   #Neutron_plugin_ml2<||> ->
   #concat { $::neutron::params::cisco_ml2_config_file:
   #  owner => 'root',
-  #  group => 'root',
+  #  group => 'neutron',
+  #  mode  => 0640,
   #} ~> Service['neutron-server']
 
   concat { $::neutron::params::cisco_ml2_config_file:
     owner => 'root',
-    group => 'root',
+    group => 'neutron',
+    mode  => 0640,
   }
 }
