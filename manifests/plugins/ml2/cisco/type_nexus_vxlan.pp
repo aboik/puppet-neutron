@@ -11,18 +11,17 @@
 #   allocation.
 #
 # [*mcast_ranges*]
-#   (optional) Multicast groups for the VXLAN interface. When configured, will
+#   Multicast groups for the VXLAN interface. When configured, will
 #   enable sending all broadcast traffic to this multicast group.
 #   Comma separated list of min:max ranges of multicast IP's.
 #   NOTE: must be a valid multicast IP, invalid IP's will be discarded
-#   Defaults to undef 
 #   Example:
 #   224.0.0.1:224.0.0.3,224.0.1.1:224.0.1.3
 #
 
 class neutron::plugins::ml2::cisco::type_nexus_vxlan (
   $vni_ranges,
-  $mcast_ranges = undef,
+  $mcast_ranges,
 ) {
   include neutron::plugins::ml2::cisco::cisco_ml2
 
