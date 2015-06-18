@@ -1,5 +1,7 @@
 #
 # Configure the Mech Driver for Cisco UCSM plugin
+# More info available here:
+# http://docwiki.cisco.com/wiki/UCS_Mechanism_Driver_for_ML2_Plugin:_Kilo
 #
 # === Parameters
 #
